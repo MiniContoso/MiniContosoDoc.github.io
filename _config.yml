@@ -3,7 +3,6 @@ description: An open project
 theme: "just-the-docs"
 color_scheme: contoso
 # logo: "/assets/images/logo.png"
-logo: "Mini Contoso"
 url: 'https://minicontoso.github.io'
 
 # aux_links:
