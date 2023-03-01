@@ -21,35 +21,35 @@ Make sure both A and ptr records are in DNS server.
 
 ```powershell
 C:\Users\Admin>nslookup
-默认服务器:  bjdc01.contoso.wiki
+默认服务器:  bjdc01.minicontoso.com
 Address:  192.168.10.10
 
 > set type=a
-> vcenter.contoso.wiki
-服务器:  bjdc01.contoso.wiki
+> vcenter.minicontoso.com
+服务器:  bjdc01.minicontoso.com
 Address:  192.168.10.10
 
-名称:    vcenter.contoso.wiki
+名称:    vcenter.minicontoso.com
 Address:  192.168.10.100
 
-> bjesx01.contoso.wiki
-服务器:  bjdc01.contoso.wiki
+> bjesx01.minicontoso.com
+服务器:  bjdc01.minicontoso.com
 Address:  192.168.10.10
 
-名称:    bjesx01.contoso.wiki
+名称:    bjesx01.minicontoso.com
 Address:  192.168.10.101
 
 > set type=ptr
 > 192.168.10.100
-服务器:  bjdc01.contoso.wiki
+服务器:  bjdc01.minicontoso.com
 Address:  192.168.10.10
 
-100.10.168.192.in-addr.arpa     name = vcenter.contoso.wiki
+100.10.168.192.in-addr.arpa     name = vcenter.minicontoso.com
 > 192.168.10.101
-服务器:  bjdc01.contoso.wiki
+服务器:  bjdc01.minicontoso.com
 Address:  192.168.10.10
 
-101.10.168.192.in-addr.arpa     name = bjesx01.contoso.wiki
+101.10.168.192.in-addr.arpa     name = bjesx01.minicontoso.com
 ```
 
 ## Install
@@ -60,7 +60,7 @@ Address:  192.168.10.10
 2. "Introduction" window, click "Next"
 3. "End user license agreement" window, check "I accept the terms of the license agreement.", click "Next"
 4. "vCenter Server deployment target" window, input the required information, click "Next"
-# ESXi host or vCenter Server name: bjesx01.contoso.wiki
+# ESXi host or vCenter Server name: bjesx01.minicontoso.com
 # HTTPS port: 443
 # User name: root
 # Password: ********
@@ -73,7 +73,7 @@ Address:  192.168.10.10
 # Network: VM Network
 # IP version: IPv4
 # IP assignment: static
-# FQDN: vcenter.contoso.wiki
+# FQDN: vcenter.minicontoso.com
 # IP address: 192.168.10.100
 # Subnet mask or prefix length: 255.255.255.0
 # Default gateway: 192.168.10.1
@@ -97,5 +97,5 @@ Address:  192.168.10.10
 15. "Ready to complete" window, review the settings and click "Finish"
 16. "Warning" window, click "OK" to start
 17. "Install - Stage 2: Complete" window indicates "You have successfully setup this vCenter Server."
-# vCenter Server Getting Started Page : https://vcenter.contoso.wiki:443
+# vCenter Server Getting Started Page : https://vcenter.minicontoso.com:443
 ```

@@ -37,7 +37,7 @@ show int f0/0 | include rate
 
 ## SSH
  ```js
-ip domain-name contoso.wiki
+ip domain-name minicontoso.com
 crypto key generate rsa
 username cisco privilege 15 secret cisco
 line vty 0 4
