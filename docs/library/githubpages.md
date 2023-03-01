@@ -51,7 +51,7 @@ theme: "just-the-docs"
 color_scheme: contoso
 logo: "/assets/images/logo.png"
 
-url: 'https://contosowiki.github.io'
+url: 'https://minicontoso.github.io'
 
 # aux_links:
 #  "Template Repository": "https://github.com/just-the-docs/just-the-docs-template"
@@ -60,7 +60,7 @@ url: 'https://contosowiki.github.io'
 back_to_top: true
 back_to_top_text: "Back to top"
 
-footer_content: "Copyright &copy; 2022 Wuwei."
+footer_content: "Copyright &copy; 2023 Wuwei."
 ```
 
 _sass\color_schemes\contoso.scss

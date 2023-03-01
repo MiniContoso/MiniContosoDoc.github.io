@@ -19,7 +19,7 @@ nav_order: 1
 ## Active Directory Domain Services Design
 
 * Single forest single domain is preferred, 2,150,000,000 objects per domain, FQDN less than 64 characters
-* Selecting the Forest Root Domain (corp.contoso.wiki) https://technet.microsoft.com/en-us/library/cc726016(v=ws.10).aspx
+* Selecting the Forest Root Domain (corp.minicontoso.com) https://technet.microsoft.com/en-us/library/cc726016(v=ws.10).aspx
 * PDC acts as a key role (time root in forest, etc)
 * Implement multiple/backup domain controllers (all GCs)
 * Implement multiple sites as needed (site, subnet,site link(180 minutes default, 15 minutes minimum), bridge all site links(default))
@@ -80,7 +80,7 @@ Click "Close" when finish
 ```powershell
 Click "Flag" icon
 Click "Promote this server to a domain controller"
-Select "Add a new forest", input "contoso.wiki" as "Root domain name", click "Next"
+Select "Add a new forest", input "minicontoso.com" as "Root domain name", click "Next"
 Keep default option
 # Forest functional level: Windows Server 2016
 # Domain functional level: Windows Server 2016
@@ -99,7 +99,7 @@ Click "Install" after Prerequisites Check done
 
 ```powershell
 # By default, the first domain controller is PDC too, PDC is the time root of the forest.
-w32tm /config /computer:BJDC01.contoso.wiki /manualpeerlist:time.windows.com /syncfromflags:manual /update
+w32tm /config /computer:BJDC01.minicontoso.com /manualpeerlist:time.windows.com /syncfromflags:manual /update
 ```
 
 ### FSMO Role Holders
@@ -117,11 +117,11 @@ Infrastucture master / Domain level: Objects reference in different domains
 Get list of FSMO role holders
 ```powershell
 netdom query fsmo
-Schema master               BJDC01.contoso.wiki
-Domain naming master        BJDC01.contoso.wiki
-PDC                         BJDC01.contoso.wiki
-RID pool manager            BJDC01.contoso.wiki
-Infrastructure master       BJDC01.contoso.wiki
+Schema master               BJDC01.minicontoso.com
+Domain naming master        BJDC01.minicontoso.com
+PDC                         BJDC01.minicontoso.com
+RID pool manager            BJDC01.minicontoso.com
+Infrastructure master       BJDC01.minicontoso.com
 ```
 
 or
@@ -131,12 +131,12 @@ or
 Get-ADForest | Select-Object DomainNamingMaster, SchemaMaster
 DomainNamingMaster  SchemaMaster       
 ------------------  ------------       
-BJDC01.contoso.wiki BJDC01.contoso.wiki
+BJDC01.minicontoso.com BJDC01.minicontoso.com
 # Domain Level
 Get-ADDomain | Select-Object InfrastructureMaster, RIDMaster, PDCEmulator
 InfrastructureMaster RIDMaster           PDCEmulator        
 -------------------- ---------           -----------        
-BJDC01.contoso.wiki  BJDC01.contoso.wiki BJDC01.contoso.wiki
+BJDC01.minicontoso.com  BJDC01.minicontoso.com BJDC01.minicontoso.com
 ```
 
 ## Install second/backup domain controller
@@ -172,9 +172,9 @@ Preferred DNS server: 10.10.10.10
 
 ```powershell
 # Do a ping test
-ping contoso.wiki
+ping minicontoso.com
 
-Pinging contoso.wiki [10.10.10.10] with 32 bytes of data:
+Pinging minicontoso.com [10.10.10.10] with 32 bytes of data:
 Reply from 10.10.10.10: bytes=32 time<1ms TTL=128
 Reply from 10.10.10.10: bytes=32 time<1ms TTL=128
 Reply from 10.10.10.10: bytes=32 time<1ms TTL=128
@@ -186,13 +186,13 @@ Approximate round trip times in milli-seconds:
     Minimum = 0ms, Maximum = 0ms, Average = 0ms
 
 # Join Domain
-Add-Computer –Domainname "contoso.wiki"  -Restart
+Add-Computer –Domainname "minicontoso.com"  -Restart
 ```
 
 ### Install Active Directory Domain Services
 
 ```powershell
-# Log in with domain administrator (contoso\administrator)
+# Log in with domain administrator (minicontoso\administrator)
 From Start Menu, Click "Server Manager"
 Click "Add roles and features"
 Click "Next"
@@ -230,14 +230,14 @@ List domain controllers
 # Get all domain controllers
 Get-ADGroupMember "Domain Controllers"
 
-distinguishedName : CN=BJDC02,OU=Domain Controllers,DC=contoso,DC=wiki
+distinguishedName : CN=BJDC02,OU=Domain Controllers,DC=minicontoso,DC=com
 name              : BJDC02
 objectClass       : computer
 objectGUID        : 65d42249-74d7-4b35-be83-8192c782ca3c
 SamAccountName    : BJDC02$
 SID               : S-1-5-21-1387974904-744306665-268114308-1103
 
-distinguishedName : CN=BJDC01,OU=Domain Controllers,DC=contoso,DC=wiki
+distinguishedName : CN=BJDC01,OU=Domain Controllers,DC=minicontoso,DC=com
 name              : BJDC01
 objectClass       : computer
 objectGUID        : 8d1cf2be-0c95-4815-8e74-5ed711c62146
@@ -249,19 +249,19 @@ Get-ADGroupMember "Domain Controllers" | Get-ADDomainController | Select-Object 
 
 Name   Forest       Domain       Site                    IsGlobalCatalog IPv4Address
 ----   ------       ------       ----                    --------------- -----------
-BJDC02 contoso.wiki contoso.wiki Default-First-Site-Name            True 10.10.10.11
-BJDC01 contoso.wiki contoso.wiki Default-First-Site-Name            True 10.10.10.10
+BJDC02 minicontoso.com minicontoso.com Default-First-Site-Name            True 10.10.10.11
+BJDC01 minicontoso.com minicontoso.com Default-First-Site-Name            True 10.10.10.10
 ```
 
 Get list of FSMO role holders
 
 ```powershell
 netdom query fsmo
-Schema master               BJDC01.contoso.wiki
-Domain naming master        BJDC01.contoso.wiki
-PDC                         BJDC01.contoso.wiki
-RID pool manager            BJDC01.contoso.wiki
-Infrastructure master       BJDC01.contoso.wiki
+Schema master               BJDC01.minicontoso.com
+Domain naming master        BJDC01.minicontoso.com
+PDC                         BJDC01.minicontoso.com
+RID pool manager            BJDC01.minicontoso.com
+Infrastructure master       BJDC01.minicontoso.com
 ```
 
 or
@@ -271,10 +271,10 @@ or
 Get-ADForest | Select-Object DomainNamingMaster, SchemaMaster
 DomainNamingMaster  SchemaMaster       
 ------------------  ------------       
-BJDC01.contoso.wiki BJDC01.contoso.wiki
+BJDC01.minicontoso.com BJDC01.minicontoso.com
 # Domain Level
 Get-ADDomain | Select-Object InfrastructureMaster, RIDMaster, PDCEmulator
 InfrastructureMaster RIDMaster           PDCEmulator        
 -------------------- ---------           -----------        
-BJDC01.contoso.wiki  BJDC01.contoso.wiki BJDC01.contoso.wiki
+BJDC01.minicontoso.com  BJDC01.minicontoso.com BJDC01.minicontoso.com
 ```
