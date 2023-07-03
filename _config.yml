@@ -12,7 +12,7 @@ url: 'https://minicontoso.github.io'
 back_to_top: true
 back_to_top_text: "Back to top"
 
-footer_content: "Copyright &copy; 2023 Wuwei."
+footer_content: "Copyright &copy; 2023"
 
 # Google Analytics Tracking (optional)
 # e.g, UA-1234567-89
